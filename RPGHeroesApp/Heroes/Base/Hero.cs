@@ -22,6 +22,9 @@ namespace RPGHeroesApp.Heroes.Base
         private protected WeaponType[] _validWeaponTypes;
         private protected ArmorType[] _validArmorTypes;
 
+        public string Name => _name;
+        public HeroAttribute LevelAttributes => _levelAttributes;
+
         public Hero(string name)
         {
             _name = name;
@@ -35,18 +38,20 @@ namespace RPGHeroesApp.Heroes.Base
             };
         }
 
-        public void LevelUp()
+        public int LevelUp()
         {
             _level++;
             _levelAttributes = _levelAttributes.SumWithAttribute(_levelAttributesGain);
 
             Console.WriteLine($"\n[You are now level {_level}]");
+
+            return _level;
         }
 
-        public void Equip(Item item)
+        public Item? Equip(Item item)
         {
-            try
-            {
+            //try
+            //{
                 // ? (Weapon)item : null;
                 // ? (Armor)item : null;
                 if (item is Weapon weapon)
@@ -60,6 +65,7 @@ namespace RPGHeroesApp.Heroes.Base
                     {
                         _equipment[weapon.Slot] = weapon;
                         Console.WriteLine($"[The {weapon.Name} feels powerful! Your damage will surely increase with this in hand!]");
+                        return _equipment[weapon.Slot];
                     }
 
                 }
@@ -74,21 +80,25 @@ namespace RPGHeroesApp.Heroes.Base
                     {
                         _equipment[armor.Slot] = armor;
                         Console.WriteLine($"[The {armor.Name} fits perfectly and gives you some nice attributes to boot!]");
+                        return _equipment[armor.Slot];
                     }
                 }
                 else
+                {
                     Console.WriteLine("... but nothing happened.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"[But a failure happened: {ex.Message}]");
-            }
+                    return null;
+                }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine($"[But a failure happened: {ex.Message}]");
+            //    return null;
+            //}
         }
 
         public decimal Damage()
         {
-            return (_equipment[Slot.Weapon] is Weapon weapon ? weapon.WeaponDamage : 1) *
-                (1 + TotalAttributes().AttributeByType(_damageAttribute) * 0.01m);
+            return (_equipment[Slot.Weapon] is Weapon weapon ? weapon.WeaponDamage : 1) * (1 + TotalAttributes().AttributeByType(_damageAttribute) * 0.01m);
         }
 
         public HeroAttribute TotalAttributes()

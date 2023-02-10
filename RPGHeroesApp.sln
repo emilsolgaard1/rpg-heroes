@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RPGHeroesApp", "RPGHeroesApp\RPGHeroesApp.csproj", "{99B069EC-C319-43C9-A2A6-7FC86273B0A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPGHeroesTests", "RPGHeroesTests\RPGHeroesTests.csproj", "{14F2D70E-3F77-4C86-8AE2-04D6FF5EC873}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{99B069EC-C319-43C9-A2A6-7FC86273B0A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99B069EC-C319-43C9-A2A6-7FC86273B0A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99B069EC-C319-43C9-A2A6-7FC86273B0A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14F2D70E-3F77-4C86-8AE2-04D6FF5EC873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14F2D70E-3F77-4C86-8AE2-04D6FF5EC873}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14F2D70E-3F77-4C86-8AE2-04D6FF5EC873}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14F2D70E-3F77-4C86-8AE2-04D6FF5EC873}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
