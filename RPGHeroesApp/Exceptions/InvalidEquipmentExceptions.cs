@@ -14,7 +14,9 @@ namespace RPGHeroesApp.Exceptions
 
     public class InvalidWeaponException : Exception
     {
-        private EquipmentExceptionType _exceptionType;
+        private readonly EquipmentExceptionType _exceptionType;
+
+        public EquipmentExceptionType ExceptionType => _exceptionType;
 
         public override string Message
         {
@@ -37,7 +39,9 @@ namespace RPGHeroesApp.Exceptions
 
     public class InvalidArmorException : Exception
     {
-        private EquipmentExceptionType _exceptionType;
+        private readonly EquipmentExceptionType _exceptionType;
+
+        public EquipmentExceptionType ExceptionType => _exceptionType;
 
         public override string Message
         {

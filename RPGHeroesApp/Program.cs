@@ -15,7 +15,7 @@ internal class Program
 
         hero.Equip(new Weapon(WeaponType.Axe, "BoneSplitter", 2));
         hero.Equip(new Armor(ArmorType.Plate, Slot.Head, "Upside-down bucket", 2));
-        hero.Equip(new Armor(ArmorType.Cloth, Slot.Head, "Weird bandana", 3));
+        //hero.Equip(new Armor(ArmorType.Cloth, Slot.Head, "Weird bandana", 3));
         hero.Equip(new Armor(ArmorType.Mail, Slot.Legs, "Chain pants", 1));
         Console.WriteLine(hero.Display());
 
