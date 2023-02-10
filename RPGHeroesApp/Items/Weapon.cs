@@ -31,7 +31,7 @@ namespace RPGHeroesApp.Items
         {
             _slot = Slot.Weapon;
             _weaponType = weaponType;
-            _weaponDamage = name.Length; // Damage is equal to the length of weapon name :D
+            _weaponDamage = name.Length; // Sets weapon damage to equal the length of weapon name.
         }
     }
 }

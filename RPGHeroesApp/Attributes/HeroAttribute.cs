@@ -15,9 +15,6 @@ namespace RPGHeroesApp.Attributes
 
     public class HeroAttribute
     {
-        //private int _strength;
-        //private int _dexterity;
-        //private int _intelligence;
         private readonly Dictionary<AttributeType, int> _attributes;
 
         public int Strength => _attributes[AttributeType.Strength];
@@ -26,9 +23,6 @@ namespace RPGHeroesApp.Attributes
 
         public HeroAttribute(int strength, int dexterity, int intelligence)
         {
-            //_strength = strength;
-            //_dexterity = dexterity;
-            //_intelligence = intelligence;
             _attributes = new Dictionary<AttributeType, int>()
             {
                 { AttributeType.Strength, strength },
@@ -37,17 +31,25 @@ namespace RPGHeroesApp.Attributes
             };
         }
 
+        /// <summary>
+        /// Returns the attribute value by its corresponding <paramref name="type"/> key.
+        /// </summary>
+        /// <param name="type">The type of attribute to get value from.</param>
+        /// <returns>Integer value from <see cref="HeroAttribute"/> key/value pair.</returns>
         public int AttributeByType(AttributeType type)
         {
             return _attributes[type];
         }
 
+        /// <summary>
+        /// Returns the sum of the calling <see cref="HeroAttribute"/> and a given <paramref name="otherAttribute"/>.
+        /// </summary>
+        /// <remarks>Note: Doesn't update attributes in the calling <see cref="HeroAttribute"/>.</remarks>
+        /// <param name="otherAttribute">The attribute to sum with the given attribute.</param>
+        /// <returns>Sum of the two attributes as a <see cref="HeroAttribute"/> object.</returns>
         public HeroAttribute SumWithAttribute(HeroAttribute otherAttribute)
         {
             return new HeroAttribute(
-                //_strength + otherAttribute.Strength,
-                //_dexterity + otherAttribute.Dexterity,
-                //_intelligence + otherAttribute.Intelligence
                 _attributes[AttributeType.Strength] + otherAttribute.Strength,
                 _attributes[AttributeType.Dexterity] + otherAttribute.Dexterity,
                 _attributes[AttributeType.Intelligence] + otherAttribute.Intelligence
