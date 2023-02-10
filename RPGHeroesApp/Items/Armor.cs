@@ -28,6 +28,8 @@ namespace RPGHeroesApp.Items
         {
             _slot = slot;
             _armorType = armorType;
+
+            // Set values in armor attributes based on armor type.
             switch (armorType)
             {
                 case ArmorType.Cloth:
@@ -43,7 +45,7 @@ namespace RPGHeroesApp.Items
                     _armorAttribute = new HeroAttribute(4, 1, 0);
                     break;
                 default:
-                    _armorAttribute = new HeroAttribute(0, 0, 0); // Technically an error.
+                    _armorAttribute = new HeroAttribute(0, 0, 0);
                     break;
             }
         }

@@ -38,6 +38,12 @@ namespace RPGHeroesApp.Heroes.Base
             };
         }
 
+        /// <summary>
+        /// Increments <see cref="Hero"/> level by one.
+        /// Adds attributes to <see cref="Hero"/> based on level attribute gain.
+        /// Writes "level" message to console.
+        /// </summary>
+        /// <returns>The new level value as integer.</returns>
         public int LevelUp()
         {
             _level++;
@@ -48,12 +54,18 @@ namespace RPGHeroesApp.Heroes.Base
             return _level;
         }
 
+        /// <summary>
+        /// Tries to add a given <paramref name="item"/> to <see cref="Hero"/> equipment.
+        /// </summary>
+        /// <param name="item">The <see cref="Item"/> object to add.</param>
+        /// <remarks>Note: Try/Catch is disabled for testing requirements.</remarks>
+        /// <returns>The <see cref="Item"/> object if successful, or null if equip failed.</returns>
+        /// <exception cref="InvalidWeaponException">Gets thrown if <see cref="Item"/> is neither in valid <see cref="Weapon"/> array or level requirement is not met.</exception>
+        /// <exception cref="InvalidArmorException">Gets thrown if <see cref="Item"/> is neither in valid <see cref="Armor"/> array or level requirement is not met.</exception>
         public Item? Equip(Item item)
         {
             //try
             //{
-                // ? (Weapon)item : null;
-                // ? (Armor)item : null;
                 if (item is Weapon weapon)
                 {
                     Console.WriteLine($"\nYou try to equip the {weapon.Name}...");
@@ -96,17 +108,21 @@ namespace RPGHeroesApp.Heroes.Base
             //}
         }
 
+        /// <summary>
+        /// Calculates the damage done by the <see cref="Hero"/> based on their "damage attribute" with equipped <see cref="Armor"/> aswell as "weapon damage" of equipped <see cref="Weapon"/>.
+        /// </summary>
+        /// <returns>The damage done as a <see cref="decimal"/> value.</returns>
         public decimal Damage()
         {
             return (_equipment[Slot.Weapon] is Weapon weapon ? weapon.WeaponDamage : 1) * (1 + TotalAttributes().AttributeByType(_damageAttribute) * 0.01m);
         }
 
+        /// <summary>
+        /// Calculates the sum of attributes from <see cref="Hero"/> and equipped <see cref="Armor"/>.
+        /// </summary>
+        /// <returns>The sum of attributes as a <see cref="HeroAttribute"/> object.</returns>
         public HeroAttribute TotalAttributes()
         {
-            // ? (Armor)_equipment[Slot.Head] : null;
-            // ? (Armor)_equipment[Slot.Body] : null;
-            // ? (Armor)_equipment[Slot.Legs] : null;
-
             HeroAttribute totalAttributes = _levelAttributes;
             if (_equipment[Slot.Head] is Armor head) totalAttributes = totalAttributes.SumWithAttribute(head.ArmorAttribute);
             if (_equipment[Slot.Body] is Armor body) totalAttributes = totalAttributes.SumWithAttribute(body.ArmorAttribute);
@@ -115,18 +131,18 @@ namespace RPGHeroesApp.Heroes.Base
             return totalAttributes;
         }
 
+        /// <summary>
+        /// Creates a <see cref="string"/> of all info about <see cref="Hero"/>.
+        /// </summary>
+        /// <returns>A <see cref="string"/> for writing to console.</returns>
         public string Display()
         {
-            // ? (Armor)_equipment[Slot.Head] : null;
             string headText = _equipment[Slot.Head] is Armor head ? $"the ({head.ArmorType}) {head.Name}" : "nothing";
-            // ? (Armor)_equipment[Slot.Body] : null;
             string bodyText = _equipment[Slot.Body] is Armor body ? $"the ({body.ArmorType}) {body.Name}" : "nothing";
-            // ? (Armor)_equipment[Slot.Legs] : null;
             string legsText = _equipment[Slot.Legs] is Armor legs ? $"the ({legs.ArmorType}) {legs.Name}" : "nothing";
 
             HeroAttribute totalAttributes = TotalAttributes();
 
-            // ? (Weapon)_equipment[Slot.Weapon] : null;
             string weaponText = _equipment[Slot.Weapon] is Weapon weapon ? $"{weapon.Name} ({weapon.WeaponType})" : "only your bare hands...";
 
             return
