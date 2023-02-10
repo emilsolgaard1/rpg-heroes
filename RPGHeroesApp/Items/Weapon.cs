@@ -21,8 +21,8 @@ namespace RPGHeroesApp.Items
 
     public class Weapon : Item
     {
-        private WeaponType _weaponType;
-        private int _weaponDamage;
+        private readonly WeaponType _weaponType;
+        private readonly int _weaponDamage;
 
         public WeaponType WeaponType => _weaponType;
         public int WeaponDamage => _weaponDamage;
@@ -31,7 +31,7 @@ namespace RPGHeroesApp.Items
         {
             _slot = Slot.Weapon;
             _weaponType = weaponType;
-            _weaponDamage = name.ToString().Length; //Damage is equal to the length of weapon name :D
+            _weaponDamage = name.ToString().Length; // Damage is equal to the length of weapon name :D
         }
     }
 }

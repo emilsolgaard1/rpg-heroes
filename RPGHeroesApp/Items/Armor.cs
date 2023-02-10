@@ -18,8 +18,8 @@ namespace RPGHeroesApp.Items
 
     public class Armor : Item
     {
-        private ArmorType _armorType;
-        private HeroAttribute _armorAttribute;
+        private readonly ArmorType _armorType;
+        private readonly HeroAttribute _armorAttribute;
 
         public ArmorType ArmorType => _armorType;
         public HeroAttribute ArmorAttribute => _armorAttribute;
@@ -43,6 +43,7 @@ namespace RPGHeroesApp.Items
                     _armorAttribute = new HeroAttribute(4, 1, 0);
                     break;
                 default:
+                    _armorAttribute = new HeroAttribute(0, 0, 0); // Technically an error.
                     break;
             }
         }

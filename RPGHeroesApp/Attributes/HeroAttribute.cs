@@ -18,7 +18,7 @@ namespace RPGHeroesApp.Attributes
         //private int _strength;
         //private int _dexterity;
         //private int _intelligence;
-        private Dictionary<AttributeType, int> _attributes;
+        private readonly Dictionary<AttributeType, int> _attributes;
 
         public int Strength => _attributes[AttributeType.Strength];
         public int Dexterity => _attributes[AttributeType.Dexterity];

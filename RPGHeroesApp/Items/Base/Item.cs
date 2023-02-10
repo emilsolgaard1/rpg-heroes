@@ -16,13 +16,13 @@ namespace RPGHeroesApp.Items.Base
 
     public abstract class Item
     {
-        private string _name;
-        private int _requiredLevel;
+        private readonly string _name;
+        private readonly int _requiredLevel;
         private protected Slot _slot;
 
         public string Name => _name;
-        public Slot Slot => _slot;
         public int RequiredLevel => _requiredLevel;
+        public Slot Slot => _slot;
 
         public Item(string name, int requiredLevel)
         {

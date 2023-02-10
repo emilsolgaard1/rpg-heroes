@@ -12,10 +12,10 @@ namespace RPGHeroesApp.Heroes.Base
 {
     public abstract class Hero
     {
-        private string _name;
+        private readonly string _name;
         private int _level;
+        private readonly Dictionary<Slot, Item?> _equipment;
 
-        private protected Dictionary<Slot, Item> _equipment;
         private protected HeroAttribute _levelAttributes;
         private protected HeroAttribute _levelAttributesGain;
         private protected AttributeType _damageAttribute;
@@ -26,7 +26,7 @@ namespace RPGHeroesApp.Heroes.Base
         {
             _name = name;
             _level = 1;
-            _equipment = new Dictionary<Slot, Item>()
+            _equipment = new Dictionary<Slot, Item?>()
             {
                 { Slot.Weapon, null },
                 { Slot.Head, null },
@@ -35,7 +35,7 @@ namespace RPGHeroesApp.Heroes.Base
             };
         }
 
-        public virtual void LevelUp()
+        public void LevelUp()
         {
             _level++;
             _levelAttributes = _levelAttributes.SumWithAttribute(_levelAttributesGain);
@@ -43,13 +43,13 @@ namespace RPGHeroesApp.Heroes.Base
             Console.WriteLine($"\n[You are now level {_level}]");
         }
 
-        public virtual void Equip(Item item)
+        public void Equip(Item item)
         {
             try
             {
-                Weapon weapon = item as Weapon;// ? (Weapon)item : null;
-                Armor armor = item as Armor;// ? (Armor)item : null;
-                if (weapon != null)
+                // ? (Weapon)item : null;
+                // ? (Armor)item : null;
+                if (item is Weapon weapon)
                 {
                     Console.WriteLine($"\nYou try to equip the {weapon.Name}...");
                     if (!_validWeaponTypes.Contains(weapon.WeaponType))
@@ -63,7 +63,7 @@ namespace RPGHeroesApp.Heroes.Base
                     }
 
                 }
-                else if (armor != null)
+                else if (item is Armor armor)
                 {
                     Console.WriteLine($"\nYou try to wear the {armor.Name}...");
                     if (!_validArmorTypes.Contains(armor.ArmorType))
@@ -85,40 +85,39 @@ namespace RPGHeroesApp.Heroes.Base
             }
         }
 
-        public virtual float Damage()
+        public decimal Damage()
         {
-            Weapon weapon = _equipment[Slot.Weapon] as Weapon;
-
-            return (float)((weapon != null ? weapon.WeaponDamage : 1) * (1 + TotalAttributes().AttributeByType(_damageAttribute) * 0.01));
+            return (_equipment[Slot.Weapon] is Weapon weapon ? weapon.WeaponDamage : 1) *
+                (1 + TotalAttributes().AttributeByType(_damageAttribute) * 0.01m);
         }
 
-        public virtual HeroAttribute TotalAttributes()
+        public HeroAttribute TotalAttributes()
         {
-            Armor head = _equipment[Slot.Head] as Armor;// ? (Armor)_equipment[Slot.Head] : null;
-            Armor body = _equipment[Slot.Body] as Armor;// ? (Armor)_equipment[Slot.Body] : null;
-            Armor legs = _equipment[Slot.Legs] as Armor;// ? (Armor)_equipment[Slot.Legs] : null;
+            // ? (Armor)_equipment[Slot.Head] : null;
+            // ? (Armor)_equipment[Slot.Body] : null;
+            // ? (Armor)_equipment[Slot.Legs] : null;
 
             HeroAttribute totalAttributes = _levelAttributes;
-            if (head != null) totalAttributes = totalAttributes.SumWithAttribute(head.ArmorAttribute);
-            if (body != null) totalAttributes = totalAttributes.SumWithAttribute(body.ArmorAttribute);
-            if (legs != null) totalAttributes = totalAttributes.SumWithAttribute(legs.ArmorAttribute);
+            if (_equipment[Slot.Head] is Armor head) totalAttributes = totalAttributes.SumWithAttribute(head.ArmorAttribute);
+            if (_equipment[Slot.Body] is Armor body) totalAttributes = totalAttributes.SumWithAttribute(body.ArmorAttribute);
+            if (_equipment[Slot.Legs] is Armor legs) totalAttributes = totalAttributes.SumWithAttribute(legs.ArmorAttribute);
 
             return totalAttributes;
         }
 
-        public virtual string Display()
+        public string Display()
         {
-            Armor head = _equipment[Slot.Head] as Armor;// ? (Armor)_equipment[Slot.Head] : null;
-            string headText = head != null ? $"the ({head.ArmorType}) {head.Name}" : "nothing";
-            Armor body = _equipment[Slot.Body] as Armor;// ? (Armor)_equipment[Slot.Body] : null;
-            string bodyText = body != null ? $"the ({body.ArmorType}) {body.Name}" : "nothing";
-            Armor legs = _equipment[Slot.Legs] as Armor;// ? (Armor)_equipment[Slot.Legs] : null;
-            string legsText = legs != null ? $"the ({legs.ArmorType}) {legs.Name}" : "nothing";
+            // ? (Armor)_equipment[Slot.Head] : null;
+            string headText = _equipment[Slot.Head] is Armor head ? $"the ({head.ArmorType}) {head.Name}" : "nothing";
+            // ? (Armor)_equipment[Slot.Body] : null;
+            string bodyText = _equipment[Slot.Body] is Armor body ? $"the ({body.ArmorType}) {body.Name}" : "nothing";
+            // ? (Armor)_equipment[Slot.Legs] : null;
+            string legsText = _equipment[Slot.Legs] is Armor legs ? $"the ({legs.ArmorType}) {legs.Name}" : "nothing";
 
             HeroAttribute totalAttributes = TotalAttributes();
 
-            Weapon weapon = _equipment[Slot.Weapon] as Weapon;// ? (Weapon)_equipment[Slot.Weapon] : null;
-            string weaponText = weapon != null ? $"{weapon.Name} ({weapon.WeaponType})" : "only your bare hands...";
+            // ? (Weapon)_equipment[Slot.Weapon] : null;
+            string weaponText = _equipment[Slot.Weapon] is Weapon weapon ? $"{weapon.Name} ({weapon.WeaponType})" : "only your bare hands...";
 
             return
                 $"\n--------------------" +
